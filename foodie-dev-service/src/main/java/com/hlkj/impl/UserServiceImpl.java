@@ -6,6 +6,7 @@ import com.hlkj.mapper.UsersMapper;
 import com.hlkj.pojo.Users;
 import com.hlkj.service.UserService;
 import com.hlkj.utils.DateUtil;
+import com.hlkj.utils.MD5Utils;
 import org.n3r.idworker.Sid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,14 +38,14 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public Users createUser(UserBO userBO) {
+    public Users createUser(UserBO userBO) throws Exception {
         if (!userBO.getPassword().equals(userBO.getConfirmPassword())){
 
         }
         Users user = new Users();
         user.setId(sid.next());//设置主键
         user.setUsername(userBO.getUsername());
-        user.setPassword(userBO.getPassword());
+        user.setPassword(MD5Utils.getMD5Str(userBO.getPassword()));
         user.setNickname(userBO.getUsername());
         user.setFace(USER_FACE);
         user.setBirthday(DateUtil.stringToDate("1991-10-10"));

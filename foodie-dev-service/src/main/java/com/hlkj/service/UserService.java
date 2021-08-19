@@ -18,6 +18,6 @@ public interface UserService {
      * @param userBO
      * @return
      */
-    public Users createUser(UserBO userBO);
+    public Users createUser(UserBO userBO) throws Exception;
 
 }

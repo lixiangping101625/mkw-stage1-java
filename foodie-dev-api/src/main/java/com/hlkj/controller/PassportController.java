@@ -50,7 +50,12 @@ public class PassportController {
             return HLKJJSONResult.errorMsg("两次输入密码不一致");
         }
         //5、注册
-        Users user = userService.createUser(userBO);
+        Users user = null;
+        try {
+            user = userService.createUser(userBO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return HLKJJSONResult.ok(user);
     }
 
