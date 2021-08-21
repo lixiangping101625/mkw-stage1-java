@@ -4,11 +4,14 @@ import com.hlkj.bo.UserBO;
 import com.hlkj.pojo.Users;
 import com.hlkj.service.UserService;
 import com.hlkj.utils.HLKJJSONResult;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
+@Api(value = "登录注册相关api")
 @RestController
 @RequestMapping("/passport")
 public class PassportController {
@@ -16,6 +19,7 @@ public class PassportController {
     @Resource
     private UserService userService;
 
+    @ApiOperation(value = "用户名是否存在", notes = "用户名是否存在", httpMethod = "GET")
     @GetMapping("/usernameIsExist")
     public HLKJJSONResult usernameIsExist(@RequestParam String username){
         if (StringUtils.isBlank(username)) {
@@ -28,6 +32,7 @@ public class PassportController {
         return HLKJJSONResult.ok();
     }
 
+    @ApiOperation(value = "用户注册", notes = "用户注册", httpMethod = "POST")
     @PostMapping("/regist")
     public HLKJJSONResult regist(@RequestBody UserBO userBO){
         //1、用户名和密码不能为空
