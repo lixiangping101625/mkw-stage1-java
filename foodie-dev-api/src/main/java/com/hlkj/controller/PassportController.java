@@ -3,13 +3,17 @@ package com.hlkj.controller;
 import com.hlkj.bo.UserBO;
 import com.hlkj.pojo.Users;
 import com.hlkj.service.UserService;
+import com.hlkj.utils.CookieUtils;
 import com.hlkj.utils.HLKJJSONResult;
+import com.hlkj.utils.JsonUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Api(value = "登录注册相关api")
 @RestController
@@ -62,6 +66,21 @@ public class PassportController {
             e.printStackTrace();
         }
         return HLKJJSONResult.ok(user);
+    }
+
+    @ApiOperation(value = "用户名密码登录", notes = "码", httpMethod = "POST")
+    @PostMapping("/login")
+    public HLKJJSONResult login(@RequestBody UserBO userBO, HttpServletRequest request,
+                                HttpServletResponse response) throws Exception {
+        if (StringUtils.isBlank(userBO.getUsername()) ||
+                StringUtils.isBlank(userBO.getPassword())) {
+            return HLKJJSONResult.errorMsg("用户名或密码不能为空！");
+        }
+        Users user = userService.loginByUsernamePwd(userBO);
+        //设置cookie
+        CookieUtils.setCookie(request, response,
+                "user", JsonUtils.objectToJson(user), true);
+        return user!=null?HLKJJSONResult.ok(user):HLKJJSONResult.errorMsg("用户名或密码错误s");
     }
 
 }

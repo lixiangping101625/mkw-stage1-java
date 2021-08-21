@@ -56,4 +56,14 @@ public class UserServiceImpl implements UserService {
         userMapper.insert(user);
         return user;
     }
+
+    @Override
+    public Users loginByUsernamePwd(UserBO userBO) throws Exception {
+        Example example = new Example(Users.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("username", userBO.getUsername());
+        criteria.andEqualTo("password", MD5Utils.getMD5Str(userBO.getPassword()));
+
+        return userMapper.selectOneByExample(example);
+    }
 }

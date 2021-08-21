@@ -20,4 +20,11 @@ public interface UserService {
      */
     public Users createUser(UserBO userBO) throws Exception;
 
+    /**
+     * 用户登录
+     * @param userBO
+     * @return
+     */
+    public Users loginByUsernamePwd(UserBO userBO) throws Exception;
+
 }
