@@ -31,12 +31,6 @@ public class PassportController {
     @GetMapping("/usernameIsExist")
     public HLKJJSONResult usernameIsExist(@RequestParam String username){
 
-        logger.debug("username {}", username);
-        logger.info("username {}", username);
-        logger.warn("username {}", username);
-        logger.error("username {}", username);
-
-
         if (StringUtils.isBlank(username)) {
             return HLKJJSONResult.errorMsg("用户名不能为空！");
         }
