@@ -9,6 +9,8 @@ import com.hlkj.utils.JsonUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -20,12 +22,21 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/passport")
 public class PassportController {
 
+    final static Logger logger = LoggerFactory.getLogger(PassportController.class);
+
     @Resource
     private UserService userService;
 
     @ApiOperation(value = "用户名是否存在", notes = "用户名是否存在", httpMethod = "GET")
     @GetMapping("/usernameIsExist")
     public HLKJJSONResult usernameIsExist(@RequestParam String username){
+
+        logger.debug("username {}", username);
+        logger.info("username {}", username);
+        logger.warn("username {}", username);
+        logger.error("username {}", username);
+
+
         if (StringUtils.isBlank(username)) {
             return HLKJJSONResult.errorMsg("用户名不能为空！");
         }
