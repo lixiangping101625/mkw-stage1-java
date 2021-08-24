@@ -73,7 +73,7 @@ public class PassportController {
         return HLKJJSONResult.ok(user);
     }
 
-    @ApiOperation(value = "用户名密码登录", notes = "码", httpMethod = "POST")
+    @ApiOperation(value = "用户名密码登录", notes = "用户名密码登录", httpMethod = "POST")
     @PostMapping("/login")
     public HLKJJSONResult login(@RequestBody UserBO userBO, HttpServletRequest request,
                                 HttpServletResponse response) throws Exception {
@@ -85,7 +85,22 @@ public class PassportController {
         //设置cookie
         CookieUtils.setCookie(request, response,
                 "user", JsonUtils.objectToJson(user), true);
-        return user!=null?HLKJJSONResult.ok(user):HLKJJSONResult.errorMsg("用户名或密码错误s");
+        return user!=null?HLKJJSONResult.ok(user):HLKJJSONResult.errorMsg("用户名或密码错误");
+    }
+
+    @ApiOperation(value = "退出登录", notes = "退出登录", httpMethod = "POST")
+    @PostMapping("/logout")
+    public HLKJJSONResult logout(@RequestParam String userId,
+                                 HttpServletRequest request,
+                                 HttpServletResponse response) throws Exception {
+        if (StringUtils.isBlank(userId)) {
+            return HLKJJSONResult.errorMsg("参数不能为空！");
+        }
+        //清除cookie
+        CookieUtils.deleteCookie(request, response, "user");
+        // TODO: 2021/8/24 清空购物车
+        // TODO: 2021/8/24 分布式下还需要清楚用户数据
+        return HLKJJSONResult.ok();
     }
 
 }
