@@ -30,7 +30,7 @@
 
         <!-- 数据库表 -->
 <!--		<table tableName="users"></table>-->
-		<table tableName="carousel"></table>
+		<table tableName="category"></table>
 
     </context>
 </generatorConfiguration>
