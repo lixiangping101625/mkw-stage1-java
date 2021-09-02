@@ -4,6 +4,9 @@ import com.hlkj.pojo.Items;
 import com.hlkj.pojo.ItemsImg;
 import com.hlkj.pojo.ItemsParam;
 import com.hlkj.pojo.ItemsSpec;
+import com.hlkj.utils.PagedGridResult;
+import com.hlkj.vo.CommentLevelCountsVO;
+import com.hlkj.vo.ItemCommentVO;
 
 import java.util.List;
 
@@ -36,4 +39,19 @@ public interface ItemService {
      * @return
      */
     ItemsParam queryItemParam(String itemId);
+
+    /**
+     * 根据商品id获取商品评价数量
+     * @param itemId
+     * @return
+     */
+    CommentLevelCountsVO queryCommentsCount(String itemId);
+
+    /**
+     * 根据商品id查询商品评价
+     * @param itemId
+     * @param level
+     * @return
+     */
+    PagedGridResult queryPagedComments(String itemId, Integer level, Integer page, Integer pageSize);
 }
