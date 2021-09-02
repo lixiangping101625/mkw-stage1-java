@@ -30,10 +30,11 @@
 
         <!-- 数据库表 -->
 <!--		<table tableName="users"></table>-->
-		<table tableName="items"></table>
-		<table tableName="items_img"></table>
-		<table tableName="items_spec"></table>
-		<table tableName="items_param"></table>
+<!--		<table tableName="items"></table>-->
+<!--		<table tableName="items_img"></table>-->
+<!--		<table tableName="items_spec"></table>-->
+<!--		<table tableName="items_param"></table>-->
+		<table tableName="items_comments"></table>
 
     </context>
 </generatorConfiguration>
