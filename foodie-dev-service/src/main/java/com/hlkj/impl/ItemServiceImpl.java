@@ -9,6 +9,7 @@ import com.hlkj.utils.DesensitizationUtil;
 import com.hlkj.utils.PagedGridResult;
 import com.hlkj.vo.CommentLevelCountsVO;
 import com.hlkj.vo.ItemCommentVO;
+import com.hlkj.vo.SearchItemsVO;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
@@ -102,6 +103,44 @@ public class ItemServiceImpl implements ItemService {
         list.forEach(vo -> {
             vo.setNickname(DesensitizationUtil.commonDisplay(vo.getNickname()));
         });
+        //设置数据返回
+        return this.setterPagedGrid(list, page);
+    }
+
+    @Override
+    public PagedGridResult searchItems(String keywords, String sort, Integer page, Integer pageSize) {
+        HashMap<String, Object> paramsMap = new HashMap<>();
+        /**
+             -- k: 默认，代表name
+             -- c: 代表销量排序
+             -- p: 代表价格
+         */
+        paramsMap.put("keywords", keywords);
+        paramsMap.put("sort", sort);
+
+        //mybatis-pagehelper
+        PageHelper.startPage(page, pageSize);
+        //这里已经是分页后的数据
+        List<SearchItemsVO> list = itemsMapperCustom.searchItems(paramsMap);//一个很基本的关联查询
+        //设置数据返回
+        return this.setterPagedGrid(list, page);
+    }
+
+    @Override
+    public PagedGridResult searchItemsByThirdCat(String catId, String sort, Integer page, Integer pageSize) {
+        HashMap<String, Object> paramsMap = new HashMap<>();
+        /**
+             -- k: 默认，代表name
+             -- c: 代表销量排序
+             -- p: 代表价格
+         */
+        paramsMap.put("catId", catId);
+        paramsMap.put("sort", sort);
+
+        //mybatis-pagehelper
+        PageHelper.startPage(page, pageSize);
+        //这里已经是分页后的数据
+        List<SearchItemsVO> list = itemsMapperCustom.searchItemsByThirdCat(paramsMap);//一个很基本的关联查询
         //设置数据返回
         return this.setterPagedGrid(list, page);
     }

@@ -1,7 +1,9 @@
 package com.hlkj.controller;
 
-import com.hlkj.enums.YesOrNo;
-import com.hlkj.pojo.*;
+import com.hlkj.pojo.Items;
+import com.hlkj.pojo.ItemsImg;
+import com.hlkj.pojo.ItemsParam;
+import com.hlkj.pojo.ItemsSpec;
 import com.hlkj.service.ItemService;
 import com.hlkj.utils.HLKJJSONResult;
 import com.hlkj.utils.PagedGridResult;
@@ -73,6 +75,46 @@ public class ItemsController {
             pageSize = 10;
         }
         PagedGridResult pagedGridResult = itemService.queryPagedComments(itemId, level, page, pageSize);
+        return HLKJJSONResult.ok(pagedGridResult);
+    }
+
+    @ApiOperation(value = "分页搜索（关键字）", notes = "分页搜索（关键字）", httpMethod = "GET")
+    @GetMapping("/search")
+    public HLKJJSONResult searchByKeywords(@RequestParam String keywords,
+                                 @RequestParam String sort,
+                                 @RequestParam Integer page,
+                                 @RequestParam Integer pageSize){
+
+        if (StringUtils.isBlank(keywords)){
+            return HLKJJSONResult.errorMsg("请输入搜索关键字");
+        }
+        if (page == null) {
+            page = 1;//建议使用枚举类
+        }
+        if (pageSize == null) {
+            page = 20;//建议使用枚举类
+        }
+        PagedGridResult pagedGridResult = itemService.searchItems(keywords, sort, page, pageSize);
+        return HLKJJSONResult.ok(pagedGridResult);
+    }
+
+    @ApiOperation(value = "分页搜索（三级分类）", notes = "分页搜索（三级分类）", httpMethod = "GET")
+    @GetMapping("/catItems")
+    public HLKJJSONResult searchByThirdCatId(@RequestParam String catId,
+                                 @RequestParam String sort,
+                                 @RequestParam Integer page,
+                                 @RequestParam Integer pageSize){
+
+        if (StringUtils.isBlank(catId)){
+            return HLKJJSONResult.errorMsg("请选择三级分类");
+        }
+        if (page == null) {
+            page = 1;//建议使用枚举类
+        }
+        if (pageSize == null) {
+            page = 20;//建议使用枚举类
+        }
+        PagedGridResult pagedGridResult = itemService.searchItemsByThirdCat(catId, sort, page, pageSize);
         return HLKJJSONResult.ok(pagedGridResult);
     }
 

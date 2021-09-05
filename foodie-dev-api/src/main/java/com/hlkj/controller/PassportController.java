@@ -70,6 +70,8 @@ public class PassportController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        // TODO: 2021/9/5 生成用户token，存入redis
+        // TODO: 2021/9/5 同步购物车数据
         return HLKJJSONResult.ok(user);
     }
 
@@ -85,6 +87,8 @@ public class PassportController {
         //设置cookie
         CookieUtils.setCookie(request, response,
                 "user", JsonUtils.objectToJson(user), true);
+        // TODO: 2021/9/5 生成用户token，存入redis
+        // TODO: 2021/9/5 同步购物车数据
         return user!=null?HLKJJSONResult.ok(user):HLKJJSONResult.errorMsg("用户名或密码错误");
     }
 
@@ -98,8 +102,7 @@ public class PassportController {
         }
         //清除cookie
         CookieUtils.deleteCookie(request, response, "user");
-        // TODO: 2021/8/24 清空购物车
-        // TODO: 2021/8/24 分布式下还需要清楚用户数据
+        // TODO: 2021/8/24 分布式下还需要清除用户数据
         return HLKJJSONResult.ok();
     }
 
