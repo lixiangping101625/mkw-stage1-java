@@ -7,6 +7,7 @@ import com.hlkj.pojo.ItemsSpec;
 import com.hlkj.utils.PagedGridResult;
 import com.hlkj.vo.CommentLevelCountsVO;
 import com.hlkj.vo.ItemCommentVO;
+import com.hlkj.vo.ShopCatVO;
 
 import java.util.List;
 
@@ -73,4 +74,11 @@ public interface ItemService {
      * @return
      */
     PagedGridResult searchItemsByThirdCat(String catId, String sort, Integer page, Integer pageSize);
+
+    /**
+     * 根据规格ids查询购物车商品最新信息
+     * @param specIds （1,3,5）
+     * @return
+     */
+    List<ShopCatVO> queryItemsBySpecIds(String specIds);
 }

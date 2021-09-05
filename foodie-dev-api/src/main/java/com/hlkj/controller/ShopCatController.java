@@ -9,6 +9,7 @@ import com.hlkj.service.CategoryService;
 import com.hlkj.utils.HLKJJSONResult;
 import com.hlkj.vo.CategoryVO;
 import com.hlkj.vo.NewItemsVO;
+import com.hlkj.vo.ShopCatVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
@@ -38,6 +39,18 @@ public class ShopCatController {
         System.out.println(shopCatBO);
         // TODO: 2021/9/5 redis 前端用户在登录的情况下，同步购物车到redis缓存
 
+        return HLKJJSONResult.ok();
+    }
+
+    @ApiOperation(value = "从购物车中删除商品", notes = "从购物车中删除商品", httpMethod = "POST")
+    @PostMapping("/del")
+    public HLKJJSONResult queryItemsBySpecIds(@RequestParam String itemSpecId,
+                                              @RequestParam String userId){
+
+        if (StringUtils.isBlank(itemSpecId) || StringUtils.isBlank(userId)){
+            return HLKJJSONResult.errorMsg("参数错误");
+        }
+        // TODO: 2021/9/5  同步删除redis中购物车的商品
         return HLKJJSONResult.ok();
     }
 

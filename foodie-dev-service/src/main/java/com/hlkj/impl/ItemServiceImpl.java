@@ -10,10 +10,12 @@ import com.hlkj.utils.PagedGridResult;
 import com.hlkj.vo.CommentLevelCountsVO;
 import com.hlkj.vo.ItemCommentVO;
 import com.hlkj.vo.SearchItemsVO;
+import com.hlkj.vo.ShopCatVO;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -143,6 +145,14 @@ public class ItemServiceImpl implements ItemService {
         List<SearchItemsVO> list = itemsMapperCustom.searchItemsByThirdCat(paramsMap);//一个很基本的关联查询
         //设置数据返回
         return this.setterPagedGrid(list, page);
+    }
+
+    @Override
+    public List<ShopCatVO> queryItemsBySpecIds(String specIds) {
+        String[] ids = specIds.split(",");
+        List<String> idList = Arrays.asList(ids);
+        List<ShopCatVO> shopCatVOS = itemsMapperCustom.queryItemsBySpecIds(idList);
+        return shopCatVOS;
     }
 
     private PagedGridResult setterPagedGrid(List<?> list, Integer page){

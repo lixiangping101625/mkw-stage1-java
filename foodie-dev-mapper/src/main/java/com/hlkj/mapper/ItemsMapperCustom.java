@@ -2,6 +2,7 @@ package com.hlkj.mapper;
 
 import com.hlkj.vo.ItemCommentVO;
 import com.hlkj.vo.SearchItemsVO;
+import com.hlkj.vo.ShopCatVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -30,5 +31,12 @@ public interface ItemsMapperCustom {
      * @return
      */
     List<SearchItemsVO> searchItemsByThirdCat(@Param("paramsMap") Map<String, Object> map);
+
+    /**
+     * 获取购物车商品信息
+     * @param specIdsList 商品规格id列表
+     * @return
+     */
+    List<ShopCatVO> queryItemsBySpecIds(@Param("paramsList") List specIdsList);
 
 }

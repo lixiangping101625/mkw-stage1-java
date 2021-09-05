@@ -9,6 +9,7 @@ import com.hlkj.utils.HLKJJSONResult;
 import com.hlkj.utils.PagedGridResult;
 import com.hlkj.vo.CommentLevelCountsVO;
 import com.hlkj.vo.ItemInfoVO;
+import com.hlkj.vo.ShopCatVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
@@ -116,6 +117,22 @@ public class ItemsController {
         }
         PagedGridResult pagedGridResult = itemService.searchItemsByThirdCat(catId, sort, page, pageSize);
         return HLKJJSONResult.ok(pagedGridResult);
+    }
+
+    /**
+     *
+     * @param itemSpecIds 拼接的规格id
+     * @return
+     */
+    @ApiOperation(value = "根据商品规格ids查询商品最新数据", notes = "根据商品规格ids查询商品最新数据", httpMethod = "GET")
+    @GetMapping("/refresh")
+    public HLKJJSONResult queryItemsBySpecIds(@RequestParam String itemSpecIds){
+
+        if (StringUtils.isBlank(itemSpecIds)){
+            return HLKJJSONResult.errorMsg("参数错误");
+        }
+        List<ShopCatVO> shopCatVOS = itemService.queryItemsBySpecIds(itemSpecIds);
+        return HLKJJSONResult.ok(shopCatVOS);
     }
 
 }
