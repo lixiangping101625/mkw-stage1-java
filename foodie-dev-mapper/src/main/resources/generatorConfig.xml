@@ -34,7 +34,8 @@
 <!--		<table tableName="items_img"></table>-->
 <!--		<table tableName="items_spec"></table>-->
 <!--		<table tableName="items_param"></table>-->
-		<table tableName="items_comments"></table>
+<!--		<table tableName="items_comments"></table>-->
+		<table tableName="user_address"></table>
 
     </context>
 </generatorConfiguration>
