@@ -35,7 +35,10 @@
 <!--		<table tableName="items_spec"></table>-->
 <!--		<table tableName="items_param"></table>-->
 <!--		<table tableName="items_comments"></table>-->
-		<table tableName="user_address"></table>
+<!--		<table tableName="user_address"></table>-->
+		<table tableName="orders"></table>
+<!--		<table tableName="order_items"></table>-->
+<!--		<table tableName="order_status"></table>-->
 
     </context>
 </generatorConfiguration>

@@ -6,7 +6,6 @@ import com.hlkj.pojo.ItemsParam;
 import com.hlkj.pojo.ItemsSpec;
 import com.hlkj.utils.PagedGridResult;
 import com.hlkj.vo.CommentLevelCountsVO;
-import com.hlkj.vo.ItemCommentVO;
 import com.hlkj.vo.ShopCatVO;
 
 import java.util.List;
@@ -81,4 +80,18 @@ public interface ItemService {
      * @return
      */
     List<ShopCatVO> queryItemsBySpecIds(String specIds);
+
+    /**
+     * 根据商品规格id获取规格对象
+     * @param specId
+     * @return
+     */
+    ItemsSpec queryItemsSpecById(String specId);
+
+    /**
+     * 扣除库存
+     * @param itemId 规格id
+     * @param buyCounts 购买数量
+     */
+    void decreaseItemStock(String specId, Integer buyCounts);
 }

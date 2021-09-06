@@ -39,4 +39,12 @@ public interface ItemsMapperCustom {
      */
     List<ShopCatVO> queryItemsBySpecIds(@Param("paramsList") List specIdsList);
 
+    /**
+     * 乐观锁扣除库存
+     * @param specId
+     * @param buyCounts
+     * @return
+     */
+    int decreaseItemStock(@Param("specId") String specId, @Param("buyCounts") Integer buyCounts);
+
 }

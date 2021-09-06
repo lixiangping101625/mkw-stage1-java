@@ -12,6 +12,8 @@ import com.hlkj.vo.ItemCommentVO;
 import com.hlkj.vo.SearchItemsVO;
 import com.hlkj.vo.ShopCatVO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
@@ -153,6 +155,35 @@ public class ItemServiceImpl implements ItemService {
         List<String> idList = Arrays.asList(ids);
         List<ShopCatVO> shopCatVOS = itemsMapperCustom.queryItemsBySpecIds(idList);
         return shopCatVOS;
+    }
+
+    @Override
+    public ItemsSpec queryItemsSpecById(String specId) {
+
+        return itemsSpecMapper.selectByPrimaryKey(specId);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public void decreaseItemStock(String specId, Integer buyCounts) {
+        ItemsSpec itemsSpec = itemsSpecMapper.selectByPrimaryKey(specId);
+        Integer stock = itemsSpec.getStock();//10
+        //synchronized 只在单体下有效性能低下,集群下无用
+        //数据库乐观锁(单体采用)
+        //锁数据库 不推荐， 导致数据库性能地下
+        //分布式锁 zookeeper redis
+
+        //lockUtil.getLock() 加锁
+
+        //if (buyCounts > stock){
+            //10 - 3- 5 -3 = -1
+        //}
+        //lockUtil.unLock() 解锁
+        int i = itemsMapperCustom.decreaseItemStock(specId, buyCounts);
+
+        if (i!=1){
+            throw new RuntimeException("订单创建失败：库存不足!");
+        }
     }
 
     private PagedGridResult setterPagedGrid(List<?> list, Integer page){

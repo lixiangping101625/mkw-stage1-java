@@ -18,4 +18,6 @@ public interface AddressService {
 
     void setDefault(String userId, String addressId);
 
+    UserAddress queryUserAddress(String userId, String addressId);
+
 }
