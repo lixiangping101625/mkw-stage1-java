@@ -1,8 +1,6 @@
 package com.hlkj.controller;
 
 import com.hlkj.bo.AddressBO;
-import com.hlkj.enums.YesOrNo;
-import com.hlkj.pojo.Carousel;
 import com.hlkj.pojo.UserAddress;
 import com.hlkj.service.AddressService;
 import com.hlkj.utils.HLKJJSONResult;
